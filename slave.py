@@ -1,5 +1,7 @@
 import socket
 import json
+import os
+os.environ['DISPLAY'] = ':0'
 import pyautogui
 
 HOST = '0.0.0.0'
@@ -16,8 +18,13 @@ def handle_command(cmd):
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-sock.bind((HOST, PORT))
-sock.listen(1)
+try:
+    sock.bind(('', PORT))
+    sock.listen(1)
+except OSError as e:
+    print(f"Error binding to port {PORT}: {e}")
+    print("Port might be in use. Wait 60 seconds or run: sudo fuser -k 5555/tcp")
+    exit(1)
 
 print(f"Slave listening on {PORT}...")
 

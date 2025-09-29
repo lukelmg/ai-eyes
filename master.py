@@ -1,7 +1,8 @@
 import socket
 import json
+import time
 
-HOST = '192.168.1.100'  # Change to slave's IP
+HOST = '192.168.68.75'  # Change to slave's IP
 PORT = 5555
 
 def send_command(sock, command):
@@ -12,7 +13,9 @@ sock.connect((HOST, PORT))
 
 # Example commands
 send_command(sock, {"action": "move", "x": 500, "y": 300})
+time.sleep(1)
 send_command(sock, {"action": "click"})
+time.sleep(1)
 send_command(sock, {"action": "type", "text": "Hello from master"})
 
 sock.close()
