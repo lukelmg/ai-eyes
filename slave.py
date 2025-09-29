@@ -1,7 +1,10 @@
 import socket
 import json
 import os
+import subprocess
+
 os.environ['DISPLAY'] = ':0'
+subprocess.run(['xhost', '+local:'], capture_output=True)
 import pyautogui
 
 HOST = '0.0.0.0'
@@ -15,6 +18,9 @@ def handle_command(cmd):
         pyautogui.click()
     elif action == 'type':
         pyautogui.write(cmd['text'])
+    elif action == 'get_screen':
+        w, h = pyautogui.size()
+        print(f"Screen: {w}x{h}")
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
