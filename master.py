@@ -13,7 +13,7 @@ sock.connect((HOST, PORT))
 
 # Get screen dimensions and move to center
 send_command(sock, {"action": "get_screen"})
-time.sleep(0.1)
+time.sleep(5)
 
 # Assume 1920x1080, adjust if needed
 import math
